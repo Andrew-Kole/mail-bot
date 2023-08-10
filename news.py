@@ -32,7 +32,8 @@ class NewsFeed:
             email_body = email_body + f"{article['title']}\n{article['url']}\n\n"
         return email_body
 
-# test
-# news_feed = NewsFeed(topic='Nasa', from_date='2023-08-07', to_date='2023-08-08', language='en')
-# print(news_feed.get_news())
+
+if __name__ == '__main__':
+    news_feed = NewsFeed(topic='Nasa', from_date='2023-08-07', to_date='2023-08-08', language='en')
+    print(news_feed.get_news())
 
