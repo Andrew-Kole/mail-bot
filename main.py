@@ -8,8 +8,7 @@ import datetime
 import time
 
 while True:
-    if datetime.datetime.now().hour == 20 and datetime.datetime.now().minute == 27
-
+    if datetime.datetime.now().hour == 20 and datetime.datetime.now().minute == 27:
         load_dotenv()
         MAIL_LOGIN: typing.Final = os.getenv("MAIL_LOGIN")
         MAIL_PASS: typing.Final = os.getenv("MAIL_PASSWORD")
