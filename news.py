@@ -17,23 +17,32 @@ class NewsFeed:
         self.to_date = to_date
         self.language = language
 
-    def get_news(self):
+    def build_mail_body(self):
         """converts json from request into formatted string for sending email"""
-        params = {'qInTitle': self.topic,
-                  'from': self.from_date,
-                  'to': self.to_date,
-                  'language': self.language,
-                  'apiKey': self.API_KEY}
-        response = requests.get(self.base_url, params=params)
-        content = response.json()
-        articles = content['articles']
+        articles = self._get_articles()
         email_body = ''
         for article in articles:
             email_body = email_body + f"{article['title']}\n{article['url']}\n\n"
         return email_body
 
+    def _get_articles(self):
+        """makes a request and gets a json data frame with articles"""
+        response = requests.get(self.base_url, params=self._build_request_parameters())
+        content = response.json()
+        articles = content['articles']
+        return articles
+
+    def _build_request_parameters(self):
+        """private class method to give parameters for request"""
+        params = {'qInTitle': self.topic,
+                  'from': self.from_date,
+                  'to': self.to_date,
+                  'language': self.language,
+                  'apiKey': self.API_KEY}
+        return params
+
 
 if __name__ == '__main__':
     news_feed = NewsFeed(topic='Nasa', from_date='2023-08-07', to_date='2023-08-08', language='en')
-    print(news_feed.get_news())
+    print(news_feed.build_mail_body())
 
